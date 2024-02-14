@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ onLogin, onSignup }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,7 +16,7 @@ const LoginPage = ({ onLogin }) => {
 
       // Check if the response contains a token
       if (response.data && typeof response.data === 'string' && response.data !== 'user does not exist') {
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('token', response.data);
         onLogin();
       } else {
         // Handle login failure
@@ -39,7 +39,7 @@ const LoginPage = ({ onLogin }) => {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
       </label>
       <button type="submit">Log in</button>
-      
+      <p>Don't have an account? <button type="button" onClick={onSignup}>Sign up here!</button></p>
     </form>
   );
 };
